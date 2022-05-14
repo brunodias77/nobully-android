@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "nobully",
+    "slug": "nobully",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
