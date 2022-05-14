@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Inital from "./src/screens/Initial/index";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import auth from "@react-native-firebase/auth";
@@ -16,17 +17,18 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Bruno respeite</Text>
-      <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
-      <TextInput
-        placeholder="Senha"
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Button title="enviar" onPress={createUser} />
-      <StatusBar style="auto" />
-    </View>
+    <Inital />
+    // <View style={styles.container}>
+    //   <Text>Bruno respeite</Text>
+    //   <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
+    //   <TextInput
+    //     placeholder="Senha"
+    //     value={password}
+    //     onChangeText={setPassword}
+    //   />
+    //   <Button title="enviar" onPress={createUser} />
+    //   <StatusBar style="auto" />
+    // </View>
   );
 }
 

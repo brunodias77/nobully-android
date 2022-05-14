@@ -22,11 +22,12 @@ export const Title = styled.Text`
 export const Content = styled.Text`
   font-size: 15px;
   color: #dedee3;
+  text-align: center;
 `;
 
 export const Footer = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: center;
-  margin-top: 177px;
+  margin-top: 140px;
 `;
