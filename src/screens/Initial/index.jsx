@@ -1,10 +1,13 @@
 import React from 'react';
 import { Image } from "react-native";
+import { useNavigation } from '@react-navigation/core'
 import { Container, Header, Title, Content, Footer } from "./styles";
 import logo from '../../assets/Logo.png';
 import Button from '../../components/Button/index'
 
 const Initial = () => {
+  const navigation = useNavigation();
+
   return <Container>
     <Image source={logo} style={{ marginBottom: 100 }}></Image>
     <Header>
@@ -13,7 +16,7 @@ const Initial = () => {
 
     </Header>
     <Footer>
-      <Button title="Login" color="#DC1637" />
+      <Button title="Login" color="#DC1637" onPress={() => navigation.navigate("Login")} />
     </Footer>
   </Container>
 }
