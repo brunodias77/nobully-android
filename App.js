@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import auth from "@react-native-firebase/auth";
 import Routes from "./src/routes/index";
+import Home from "./src/screens/Home/index";
 
 export default function App() {
   const [email, setEmail] = useState("");
@@ -15,5 +16,5 @@ export default function App() {
       });
   }
 
-  return <Routes />;
+  return <Home />;
 }

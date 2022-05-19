@@ -4,6 +4,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  StatusBar,
 } from "react-native";
 import Input from '../../components/Input/index'
 import Button from '../../components/Button/index'
@@ -15,6 +16,9 @@ const Login = () => {
   return <KeyboardAvoidingView behavior="position" enabled>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
+        <StatusBar backgroundColor="#f4f5f6" barStyle="dark-content"
+        />
+
         <Header>
           <Title>Estamos{"\n"}quase lá.</Title>
           <SubTitle>

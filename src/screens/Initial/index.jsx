@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from "react-native";
+import { Image, StatusBar } from "react-native";
 import { useNavigation } from '@react-navigation/core'
 import { Container, Header, Title, Content, Footer } from "./styles";
 import logo from '../../assets/Logo.png';
@@ -9,6 +9,7 @@ const Initial = () => {
   const navigation = useNavigation();
 
   return <Container>
+    <StatusBar backgroundColor="#1B1B1F" barStyle='light-content' />
     <Image source={logo} style={{ marginBottom: 100 }}></Image>
     <Header>
       <Title>Seja{"\n"}Bem-vindo</Title>
