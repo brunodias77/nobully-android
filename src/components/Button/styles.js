@@ -6,6 +6,7 @@ export const Container = styled.TouchableOpacity`
   padding: 20px;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 `;
 export const TitleButton = styled.Text`
   font-size: ${RFValue(18)}px;

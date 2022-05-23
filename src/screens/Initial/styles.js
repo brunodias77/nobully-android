@@ -27,7 +27,6 @@ export const Content = styled.Text`
 
 export const Footer = styled.View`
   width: 100%;
-  flex-direction: row;
   justify-content: center;
   margin-top: 140px;
 `;

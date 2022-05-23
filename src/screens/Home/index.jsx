@@ -10,7 +10,7 @@ const Home = () => {
     <StatusBar backgroundColor="#1B1B1F" barStyle='light-content' />
     <Header />
     <Content>
-      <Title>Ola, Bruno</Title>
+      <Title>Ola, Bruno Dias</Title>
       <SubTitle>Não foi encontrado{"\n"}nenhum conflito em seu nome</SubTitle>
     </Content>
     <Footer />

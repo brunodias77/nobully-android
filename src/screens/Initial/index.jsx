@@ -18,6 +18,8 @@ const Initial = () => {
     </Header>
     <Footer>
       <Button title="Login" color="#DC1637" onPress={() => navigation.navigate("Login")} />
+      <Button title="Cadastar" color="#DC1637" onPress={() => navigation.navigate("Register")} />
+
     </Footer>
   </Container>
 }

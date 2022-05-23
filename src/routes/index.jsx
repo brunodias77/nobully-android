@@ -6,7 +6,6 @@ import Header from '../components/Header'
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Header />
       <AuthRoutes />
     </NavigationContainer>
   );

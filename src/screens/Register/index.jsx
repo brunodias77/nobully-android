@@ -9,12 +9,13 @@ import {
 import Input from '../../components/Input/index'
 import Button from '../../components/Button/index'
 import { Container, Title, Header, SubTitle, Form } from "./styles";
-import { useNavigation } from '@react-navigation/core'
 
 
 
-const Login = () => {
-  const navigation = useNavigation();
+const Register = () => {
+  function handleRegister(){
+    
+  }
   return <KeyboardAvoidingView behavior="position" enabled>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
@@ -22,27 +23,23 @@ const Login = () => {
         />
 
         <Header>
-          <Title>Estamos{"\n"}quase lá.</Title>
+          <Title>Crie sua{"\n"}conta.</Title>
           <SubTitle>
-            Faça seu login para tornar{"\n"}a escola um lugar melhor.
+            Faça seu cadastro de{"\n"}forma ráppida e fácil.
           </SubTitle>
         </Header>
 
         <Form>
+          <Input sizeIcon={30} iconName="user" placeholder="Digite o nome do aluno" />
           <Input sizeIcon={30} iconName="mail" placeholder="E-mail" />
           <Input sizeIcon={30} iconName="lock" placeholder="Senha" />
         </Form>
 
-        <Button title="Login" onPress={() => navigation.navigate("Home")} />
-        <Button
-          titleColor="#7A7A80"
-          color=" #F4F5F6"
-          title="Esqueci minha senha"
-          onPress={() => { }}
-        />
+        <Button title="Cadastrar aluno" onPress={() => { }} />
+
       </Container>
     </TouchableWithoutFeedback>
   </KeyboardAvoidingView>
 }
 
-export default Login;
+export default Register;
