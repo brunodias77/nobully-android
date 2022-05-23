@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -10,10 +10,19 @@ import Input from '../../components/Input/index'
 import Button from '../../components/Button/index'
 import { Container, Title, Header, SubTitle, Form } from "./styles";
 import { useNavigation } from '@react-navigation/core'
-
+import auth from '@react-native-firebase/auth';
 
 
 const Login = () => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  function handleLogin() {
+    auth().signInWithEmailAndPassword(email, password).then(() => {
+      Alert.alert("Logado com sucesso")
+      navigation.navigate("Home")
+    }).catch(err => console.log(err))
+
+  }
   const navigation = useNavigation();
   return <KeyboardAvoidingView behavior="position" enabled>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -29,11 +38,11 @@ const Login = () => {
         </Header>
 
         <Form>
-          <Input sizeIcon={30} iconName="mail" placeholder="E-mail" />
-          <Input sizeIcon={30} iconName="lock" placeholder="Senha" />
+          <Input value={email} onChangeText={setEmail} sizeIcon={30} iconName="mail" placeholder="E-mail" />
+          <Input value={password} onChangeText={setPassword} sizeIcon={30} iconName="lock" placeholder="Senha" />
         </Form>
 
-        <Button title="Login" onPress={() => navigation.navigate("Home")} />
+        <Button title="Login" onPress={handleLogin} />
         <Button
           titleColor="#7A7A80"
           color=" #F4F5F6"

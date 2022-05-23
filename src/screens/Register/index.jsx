@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import auth from "@react-native-firebase/auth";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -9,12 +10,21 @@ import {
 import Input from '../../components/Input/index'
 import Button from '../../components/Button/index'
 import { Container, Title, Header, SubTitle, Form } from "./styles";
+import { useNavigation } from '@react-navigation/core'
 
 
 
 const Register = () => {
-  function handleRegister(){
-    
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+  const navigation = useNavigation();
+  function handleRegister() {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCreated) => {
+        Alert.alert("Aluno cadastrado com sucesso")
+        navigation.navigate("Login")
+      }).catch(err => Alert.alert(err.message));
   }
   return <KeyboardAvoidingView behavior="position" enabled>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -31,11 +41,11 @@ const Register = () => {
 
         <Form>
           <Input sizeIcon={30} iconName="user" placeholder="Digite o nome do aluno" />
-          <Input sizeIcon={30} iconName="mail" placeholder="E-mail" />
-          <Input sizeIcon={30} iconName="lock" placeholder="Senha" />
+          <Input value={email} onChangeText={setEmail} sizeIcon={30} iconName="mail" placeholder="E-mail" />
+          <Input value={password} onChangeText={setPassword} sizeIcon={30} iconName="lock" placeholder="Senha" />
         </Form>
 
-        <Button title="Cadastrar aluno" onPress={() => { }} />
+        <Button title="Cadastrar aluno" onPress={handleRegister} />
 
       </Container>
     </TouchableWithoutFeedback>

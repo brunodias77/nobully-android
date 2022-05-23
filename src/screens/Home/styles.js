@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const Container = styled.View``;
 export const Content = styled.View`
-  height: 81%;
+  height: 82%;
   padding: 20px;
 `;
 
