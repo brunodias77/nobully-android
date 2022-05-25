@@ -4,6 +4,7 @@ import Initial from '../screens/Initial';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
 import Register from '../screens/Register'
+import Chat from '../screens/Chat/index';
 
 
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -15,6 +16,7 @@ const AuthRoutes = () => {
     <Screen name="Login" component={Login} />
     <Screen name="Home" component={Home} />
     <Screen name="Register" component={Register} />
+    <Screen name="Chat" component={Chat} />
 
   </Navigator>
 }
