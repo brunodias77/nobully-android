@@ -17,6 +17,7 @@ import firestore from '@react-native-firebase/firestore';
 
 
 const Register = () => {
+  //animal
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
