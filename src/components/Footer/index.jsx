@@ -3,14 +3,20 @@ import { TouchableOpacity } from 'react-native';
 
 import { Container } from './styles';
 import { Feather } from "@expo/vector-icons"
+import { useNavigation } from '@react-navigation/core'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Footer = () => {
+
+const Footer = ({ iconNameMessage = "message-reply-outline", iconNameHome = "home-variant-outline" }) => {
+  const navigation = useNavigation();
+
+
   return <Container>
-    <TouchableOpacity>
-      <Feather name="message-square" size={30} color="#ffff" />
+    <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+      <MaterialCommunityIcons name={iconNameMessage} size={30} color="#ffff" />
     </TouchableOpacity>
     <TouchableOpacity>
-      <Feather name="home" size={30} color="#ffff" />
+      <MaterialCommunityIcons onPress={() => navigation.navigate("Home")} name={iconNameHome} size={30} color="#fff" />
     </TouchableOpacity>
     <TouchableOpacity>
       <Feather name="user" size={30} color="#ffff" />

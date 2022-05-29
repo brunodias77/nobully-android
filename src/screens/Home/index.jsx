@@ -13,7 +13,7 @@ const Home = () => {
       <Title>Ola, Bruno Dias</Title>
       <SubTitle>Não foi encontrado{"\n"}nenhum conflito em seu nome</SubTitle>
     </Content>
-    <Footer />
+    <Footer iconNameHome="home-variant" />
 
   </Container>);
 }

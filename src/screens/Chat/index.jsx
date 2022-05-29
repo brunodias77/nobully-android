@@ -10,7 +10,7 @@ const Chat = () => {
     setMessages([
       {
         _id: 1,
-        text: 'Hello developer',
+        text: 'Olá, como podemos ajudar',
         createdAt: new Date(),
         user: {
           _id: 2,
@@ -20,7 +20,7 @@ const Chat = () => {
       }, {
         "_id": "a6461a1e-9cf7-40a1-ab39-fd741325689f",
         "createdAt": new Date(),
-        "text": "Gggg",
+        "text": "Aconteceu um problema",
         "user": {
           "_id": 1,
         },
@@ -44,7 +44,7 @@ const Chat = () => {
         }}
 
       />
-      <Footer />
+      <Footer iconNameMessage="message-reply" />
     </>
   )
 }

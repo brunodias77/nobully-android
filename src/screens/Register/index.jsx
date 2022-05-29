@@ -11,10 +11,13 @@ import Input from '../../components/Input/index'
 import Button from '../../components/Button/index'
 import { Container, Title, Header, SubTitle, Form } from "./styles";
 import { useNavigation } from '@react-navigation/core'
+import firestore from '@react-native-firebase/firestore';
+
 
 
 
 const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
   const navigation = useNavigation();
@@ -22,9 +25,20 @@ const Register = () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCreated) => {
-        Alert.alert("Aluno cadastrado com sucesso")
-        navigation.navigate("Login")
+        firestore().collection('users').add({
+          name,
+          email,
+          password,
+        }).then(() => navigation.navigate("Login")).catch(err => Alert.alert("Erro ao cadastrar o usuario"))
+
       }).catch(err => Alert.alert(err.message));
+  }
+  function createUser() {
+    firestore().collection('users').add({
+      name,
+      email,
+      password,
+    }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
   }
   return <KeyboardAvoidingView behavior="position" enabled>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -40,7 +54,7 @@ const Register = () => {
         </Header>
 
         <Form>
-          <Input sizeIcon={30} iconName="user" placeholder="Digite o nome do aluno" />
+          <Input value={name} onChangeText={setName} sizeIcon={30} iconName="mail" sizeIcon={30} iconName="user" placeholder="Digite o nome do aluno" />
           <Input value={email} onChangeText={setEmail} sizeIcon={30} iconName="mail" placeholder="E-mail" />
           <Input value={password} onChangeText={setPassword} sizeIcon={30} iconName="lock" placeholder="Senha" />
         </Form>
