@@ -11,12 +11,14 @@ import Button from '../../components/Button/index'
 import { Container, Title, Header, SubTitle, Form } from "./styles";
 import { useNavigation } from '@react-navigation/core'
 import auth from '@react-native-firebase/auth';
-
+import { useData } from '../../hooks/useData'
 
 const Login = () => {
+  const { numero } = useData();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   function handleLogin() {
+    console.log(numero);
     auth().signInWithEmailAndPassword(email, password).then(() => {
       Alert.alert("Logado com sucesso")
       navigation.navigate("Home")
