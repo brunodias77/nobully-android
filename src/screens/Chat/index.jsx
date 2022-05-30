@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Footer from '../../components/Footer/index'
-
+import firestore from '@react-native-firebase/firestore';
+import { Alert } from 'react-native';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -27,12 +28,18 @@ const Chat = () => {
       },
 
     ])
+
   }, [])
 
   const onSend = useCallback((messages = []) => {
+    console.log(messages)
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    // firestore().collection('posts').add({
+    //   userName: 'bruno@teste.com',
+    //   message: messages[0].text,
+    // }).then(() => console.log("enviado para o firebase com sucesso")).catch((err) => Alert.alert("Erro ao enviar a mensagem"));
+
   }, [])
-  console.log(messages);
 
   return (
     <>
