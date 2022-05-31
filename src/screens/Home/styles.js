@@ -25,4 +25,5 @@ export const ButtonFloating = styled.TouchableOpacity`
 export const ModalHeader = styled.View`
   display: flex;
   flex-direction: row;
+  align-items: space-around;
 `;

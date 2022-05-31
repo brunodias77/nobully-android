@@ -7,6 +7,8 @@ import { Feather } from "@expo/vector-icons"
 import { FontAwesome } from '@expo/vector-icons';
 
 const Home = () => {
+  const [title, setTitle] = React.useState("");
+  const [conflict, setConflict] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
   // React.useEffect(() => {
   //   handlePosts();
@@ -41,25 +43,23 @@ const Home = () => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
+          <Pressable
+            style={styles.button}
+            onPress={() => setModalVisible(!modalVisible)}
+          >
+            <FontAwesome name="close" size={24} color="black" />
+          </Pressable>
           <ModalHeader>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <FontAwesome name="close" size={24} color="black" />
-            </Pressable>
             <View>
-              <Text>Titulo</Text>
-              <TextInput style={styles.input} />
+              <Text style={styles.styleText}>Titulo</Text>
+              <TextInput style={styles.input} value={title} onChangeText={setTitle} />
             </View>
-
           </ModalHeader>
-
-
-
-          <Text>Qual o motivo do conflito</Text>
-          <TextInput style={styles.textArea} />
-
+          <Text style={styles.styleText}>Qual o motivo do conflito</Text>
+          <TextInput style={styles.textArea} value={conflict} onChangeText={setConflict} />
+          <Pressable onPress={() => console.log("apertou")} style={styles.button}>
+            <Text>Enviar</Text>
+          </Pressable>
         </View>
       </View>
     </Modal>
@@ -108,17 +108,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center"
   },
+  styleText: {
+    marginTop: 10,
+    textAlign: 'center',
+  },
   input: {
     borderRadius: 10,
     backgroundColor: '#eee',
-    width: 100,
+    width: 250,
     padding: 10,
   },
   textArea: {
+    marginTop: 10,
     borderRadius: 10,
     backgroundColor: '#eee',
-    width: 100,
-    height: 220,
+    width: 250,
+    height: 180,
     padding: 10,
   }
 });
