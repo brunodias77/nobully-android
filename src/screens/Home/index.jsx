@@ -1,30 +1,54 @@
 import React from 'react';
-import { TextInput, Pressable, StatusBar, Modal, StyleSheet, View, Text } from 'react-native';
+import { Alert, TextInput, Pressable, StatusBar, Modal, StyleSheet, View, Text } from 'react-native';
 import { ModalHeader, Container, Content, Title, SubTitle, ButtonFloating } from './styles';
 import Header from '../../components/Header/index'
 import Footer from '../../components/Footer/index'
 import { Feather } from "@expo/vector-icons"
 import { FontAwesome } from '@expo/vector-icons';
+import firestore from '@react-native-firebase/firestore';
+import Card from '../../components/Card'
+
 
 const Home = () => {
+
   const [title, setTitle] = React.useState("");
   const [conflict, setConflict] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
-  // React.useEffect(() => {
-  //   handlePosts();
-  // }, []);
+  const [orders, setOrders] = React.useState(null);
+  React.useEffect(() => {
+    async function handleOrders() {
+      const data = await firestore().collection('bruno@teste.com').get();
+      if (data) {
+        console.log(data);
+        if (data._docs === []) {
+          console.log('array vazio');
+        }
+        // setOrders(data._docs[1]._data.message);
+      } else {
+        return;
+      }
 
-  // async function handlePosts() {
-  //   const posts = await firestore().collection("posts").get();
-  //   console.log(posts);
-  // }
+    }
+    handleOrders();
+  }, [])
+
+  function handleSubmit() {
+    firestore().collection("bruno@teste.com").add({
+      title: ` ${title}`,
+      message: `${conflict}`,
+      userName: 'bruno@teste.com',
+      createdAt: firestore.FieldValue.serverTimestamp()
+
+    }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
+  }
 
   return (<Container>
     <StatusBar backgroundColor="#1B1B1F" barStyle='light-content' />
     <Header />
     <Content>
       <Title>Ola, Bruno Dias</Title>
-      <SubTitle>Não foi encontrado{"\n"}nenhum conflito em seu nome</SubTitle>
+      {orders ? <Card message={orders} /> : <SubTitle>Não foi encontrado{"\n"}nenhum conflito em seu nome</SubTitle>}
+
     </Content>
 
     <ButtonFloating onPress={() => setModalVisible(!modalVisible)}>
@@ -57,8 +81,8 @@ const Home = () => {
           </ModalHeader>
           <Text style={styles.styleText}>Qual o motivo do conflito</Text>
           <TextInput style={styles.textArea} value={conflict} onChangeText={setConflict} />
-          <Pressable onPress={() => console.log("apertou")} style={styles.button}>
-            <Text>Enviar</Text>
+          <Pressable onPress={handleSubmit} style={styles.buttonSubmit}>
+            <Text style={styles.textSubmit}>Enviar</Text>
           </Pressable>
         </View>
       </View>
@@ -77,7 +101,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     width: 300,
-    height: 400,
+    height: 420,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 15,
@@ -92,10 +116,19 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 5,
     padding: 10,
   },
+  buttonSubmit: {
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: "#dc1637",
+    marginVertical: 10,
 
+  },
+  textSubmit: {
+    color: '#fff',
+  },
   buttonClose: {
     backgroundColor: "#fff",
   },
