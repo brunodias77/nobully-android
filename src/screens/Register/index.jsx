@@ -23,16 +23,20 @@ const Register = () => {
   const [password, setPassword] = useState("")
   const navigation = useNavigation();
   function handleRegister() {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCreated) => {
-        firestore().collection('users').add({
-          name,
-          email,
-          password,
-        }).then(() => navigation.navigate("Login")).catch(err => Alert.alert("Erro ao cadastrar o usuario"))
+    if (email && password !== " ") {
+      auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCreated) => {
+          firestore().collection('users').add({
+            name,
+            email,
+            password,
+          }).then(() => navigation.navigate("Login")).catch(err => Alert.alert("Erro ao cadastrar o usuario"))
 
-      }).catch(err => Alert.alert(err.message));
+        }).catch(err => Alert.alert(err.message));
+    } else {
+      Alert.alert("Preencha os campos corretamente")
+    }
   }
   function createUser() {
     firestore().collection('users').add({

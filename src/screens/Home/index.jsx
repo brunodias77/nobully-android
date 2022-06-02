@@ -30,13 +30,18 @@ const Home = () => {
   }, [])
 
   function handleSubmit() {
-    firestore().collection("Orders").add({
-      title: ` ${title}`,
-      message: `${conflict}`,
-      userName: 'bruno@teste.com',
-      createdAt: firestore.FieldValue.serverTimestamp()
+    if (title && conflict !== " ") {
+      firestore().collection("Orders").add({
+        title: ` ${title}`,
+        message: `${conflict}`,
+        userName: 'bruno@teste.com',
+        createdAt: firestore.FieldValue.serverTimestamp()
 
-    }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
+      }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
+    } else {
+      Alert.alert("Preencha os dados corretamente")
+    }
+
   }
 
   return (<Container>

@@ -15,14 +15,18 @@ import { useData } from '../../hooks/useData'
 
 const Login = () => {
   const { numero } = useData();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   function handleLogin() {
-    console.log(numero);
-    auth().signInWithEmailAndPassword(email, password).then(() => {
-      Alert.alert("Logado com sucesso")
-      navigation.navigate("Home")
-    }).catch(err => console.log(err))
+    if (email && password !== " ") {
+      auth().signInWithEmailAndPassword(email, password).then(() => {
+        Alert.alert("Logado com sucesso")
+        navigation.navigate("Home")
+      }).catch(err => console.log(err))
+    } else {
+      Alert.alert("Preencha os campo corretamente")
+    }
+
 
   }
   const navigation = useNavigation();
