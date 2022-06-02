@@ -2,13 +2,11 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Footer from '../../components/Footer/index'
 import firestore from '@react-native-firebase/firestore';
-import { Alert } from 'react-native';
 import { useData } from '../../hooks/useData'
 
 const Chat = () => {
   const { message } = useData();
   const [messages, setMessages] = useState([]);
-  console.log(message)
   useEffect(() => {
     setMessages([
 

@@ -38,8 +38,6 @@ const Home = () => {
 
     }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
   }
-  console.log("aqui man")
-  console.log(orders)
 
   return (<Container>
     <StatusBar backgroundColor="#1B1B1F" barStyle='light-content' />
