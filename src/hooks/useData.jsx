@@ -4,7 +4,8 @@ const DataContext = React.createContext();
 
 export const DataProvider = ({ children }) => {
   const [numero, setNumero] = React.useState(11);
-  return <DataContext.Provider value={{ numero }}>
+  const [message, setMessage] = React.useState(null);
+  return <DataContext.Provider value={{ numero, message, setMessage }}>
     {children}
   </DataContext.Provider>
 }

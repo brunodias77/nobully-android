@@ -7,33 +7,30 @@ import { Feather } from "@expo/vector-icons"
 import { FontAwesome } from '@expo/vector-icons';
 import firestore from '@react-native-firebase/firestore';
 import Card from '../../components/Card'
+import { useData } from '../../hooks/useData'
 
 
 const Home = () => {
 
+  const [orders, setOrders] = React.useState(null);
   const [title, setTitle] = React.useState("");
   const [conflict, setConflict] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [orders, setOrders] = React.useState(null);
-  React.useEffect(() => {
-    async function handleOrders() {
-      const data = await firestore().collection('bruno@teste.com').get();
-      if (data) {
-        console.log(data);
-        if (data._docs === []) {
-          console.log('array vazio');
-        }
-        // setOrders(data._docs[1]._data.message);
-      } else {
-        return;
-      }
 
-    }
-    handleOrders();
+  React.useEffect(() => {
+    const orders1 = firestore().collection("Orders").onSnapshot(querySnapshot => {
+      const data = querySnapshot.docs.map(doc => {
+        return {
+          message: doc.data().message
+        }
+      })
+      setOrders(data)
+      return () => subscriber();
+    })
   }, [])
 
   function handleSubmit() {
-    firestore().collection("bruno@teste.com").add({
+    firestore().collection("Orders").add({
       title: ` ${title}`,
       message: `${conflict}`,
       userName: 'bruno@teste.com',
@@ -41,14 +38,15 @@ const Home = () => {
 
     }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
   }
+  console.log("aqui man")
+  console.log(orders)
 
   return (<Container>
     <StatusBar backgroundColor="#1B1B1F" barStyle='light-content' />
     <Header />
     <Content>
       <Title>Ola, Bruno Dias</Title>
-      {orders ? <Card message={orders} /> : <SubTitle>Não foi encontrado{"\n"}nenhum conflito em seu nome</SubTitle>}
-
+      {orders && orders.map((element, index) => <Card key={index} message={element.message} />)}
     </Content>
 
     <ButtonFloating onPress={() => setModalVisible(!modalVisible)}>
