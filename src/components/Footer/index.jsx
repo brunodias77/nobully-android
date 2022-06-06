@@ -18,7 +18,8 @@ const Footer = ({ iconNameMessage = "message-reply-outline", iconNameHome = "hom
     <TouchableOpacity>
       <MaterialCommunityIcons onPress={() => navigation.navigate("Home")} name={iconNameHome} size={30} color="#fff" />
     </TouchableOpacity>
-    <TouchableOpacity>
+
+    <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
       <Feather name="user" size={30} color="#ffff" />
     </TouchableOpacity>
   </Container>
