@@ -8,34 +8,60 @@ const Chat = () => {
   const { message } = useData();
   const [messages, setMessages] = useState([]);
   useEffect(() => {
-    setMessages([
+    const orders1 = firestore().collection("bruno@teste.com").onSnapshot(querySnapshot => {
+      const data = querySnapshot.docs.map(doc => {
+        if (doc.data().userName === 'bruno@teste.com') {
+          return {
+            "_id": 2,
+            "createdAt": new Date(),
+            "text": `${doc.data().message}`,
+            "user": {
+              "_id": 1,
+            },
+          }
+        }
 
-      {
-        _id: 1,
-        text: 'Olá, recebemos sua reclamação e logo resolveremos esse conflito',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
+      })
+      console.log(data);
+      setMessages([
+        ...data,
+        {
+          _id: 1,
+          text: 'Olá, recebemos sua reclamação e logo resolveremos esse conflito',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
         },
-      },
-      {
-        "_id": "a6461a1e-9cf7-40a1-ab39-fd741325689f",
-        "createdAt": new Date(),
-        "text": `${message}`,
-        "user": {
-          "_id": 1,
-        },
-      },
+        // {
+        //   "_id": 2,
+        //   "createdAt": new Date(),
+        //   "text": `${message}`,
+        //   "user": {
+        //     "_id": 1,
+        //   },
+        // },
+      ])
+      return () => subscriber();
+    })
 
-
-    ])
 
   }, [])
 
   const onSend = useCallback((messages = []) => {
     console.log(messages)
+    firestore()
+      .collection('bruno@teste.com')
+      .add({
+        message: messages[0].text,
+        userName: 'bruno@teste.com',
+        createdAt: firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        console.log('User added!');
+      });
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
 

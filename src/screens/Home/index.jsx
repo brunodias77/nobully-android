@@ -18,12 +18,14 @@ const Home = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
 
   React.useEffect(() => {
-    const orders1 = firestore().collection("Orders").onSnapshot(querySnapshot => {
+    const orders1 = firestore().collection("bruno@teste.com").onSnapshot(querySnapshot => {
       const data = querySnapshot.docs.map(doc => {
         return {
-          message: doc.data().message
+          message: doc.data().message,
+          userName: doc.data().userName
         }
       })
+      console.log(data);
       setOrders(data)
       return () => subscriber();
     })
@@ -31,7 +33,7 @@ const Home = () => {
 
   function handleSubmit() {
     if (title && conflict !== " ") {
-      firestore().collection("Orders").add({
+      firestore().collection("bruno@teste.com").add({
         title: ` ${title}`,
         message: `${conflict}`,
         userName: 'bruno@teste.com',
