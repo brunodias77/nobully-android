@@ -15,18 +15,10 @@ const NewChat = () => {
     const orders1 = firestore().collection("bruno@teste.com")
       .orderBy("createdAt", "asc").onSnapshot(querySnapshot => {
         const data = querySnapshot.docs.map(doc => {
-          if (doc.data().userName === 'bruno@teste.com') {
-            return {
-              "createdAt": new Date(),
-              "text": `${doc.data().message}`,
-              "userName": doc.data().userName,
-            }
-          } else {
-            return {
-              "createdAt": new Date(),
-              "text": `${doc.data().message}`,
-              "userName": doc.data().userName,
-            }
+          return {
+            "createdAt": new Date(),
+            "text": `${doc.data().message}`,
+            "userName": doc.data().userName,
           }
         })
         console.log(data);
@@ -86,7 +78,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   myMessage: {
-    backgroundColor: "blue",
+    backgroundColor: "#1E90FF",
     padding: 10,
     marginVertical: 10,
     marginRight: 1,
@@ -97,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   nobullyMessage: {
-    backgroundColor: "red",
+    backgroundColor: "#dc1637",
     padding: 10,
     marginVertical: 10,
     marginRight: 110,

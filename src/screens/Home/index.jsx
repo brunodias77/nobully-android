@@ -17,18 +17,14 @@ const Home = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
 
   React.useEffect(() => {
-    const orders1 = firestore().collection("bruno@teste.com").onSnapshot(querySnapshot => {
-      const data = querySnapshot.docs.map(doc => {
-        return {
-          message: doc.data().message,
-          userName: doc.data().userName
-        }
-      })
-      console.log(data);
-      setOrders(data)
-      return () => subscriber();
-    })
+    handleOrders();
   }, [])
+
+  async function handleOrders() {
+    const order = await firestore().collection('bruno@teste.com').get();
+    console.log(order);
+    setOrders(order.docs);
+  }
 
   function handleSubmit() {
     if (conflict !== " ") {
