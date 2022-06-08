@@ -6,19 +6,15 @@ import { useData } from '../../hooks/useData'
 const Card = ({ message }) => {
   const navigation = useNavigation();
   const { setMessage } = useData();
-
-
   function handleChat() {
     setMessage(message);
-    navigation.navigate("Chat");
+    navigation.navigate("NewChat");
   }
   return <TouchableOpacity onPress={handleChat}>
     <View style={styles.card}>
       <Text style={styles.text}>{message}</Text>
     </View>
   </TouchableOpacity>
-
-
 }
 
 export default Card;

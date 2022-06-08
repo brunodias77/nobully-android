@@ -12,7 +12,7 @@ const Footer = ({ iconNameMessage = "message-reply-outline", iconNameHome = "hom
 
 
   return <Container>
-    <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+    <TouchableOpacity onPress={() => navigation.navigate("NewChat")}>
       <MaterialCommunityIcons name={iconNameMessage} size={30} color="#ffff" />
     </TouchableOpacity>
     <TouchableOpacity>

@@ -13,7 +13,6 @@ import { useData } from '../../hooks/useData'
 const Home = () => {
 
   const [orders, setOrders] = React.useState(null);
-  const [title, setTitle] = React.useState("");
   const [conflict, setConflict] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -32,11 +31,10 @@ const Home = () => {
   }, [])
 
   function handleSubmit() {
-    if (title && conflict !== " ") {
+    if (conflict !== " ") {
       firestore().collection("bruno@teste.com").add({
-        title: ` ${title}`,
         message: `${conflict}`,
-        userName: 'bruno@teste.com',
+        userName: 'nobully@teste.com',
         createdAt: firestore.FieldValue.serverTimestamp()
 
       }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
@@ -76,12 +74,6 @@ const Home = () => {
           >
             <FontAwesome name="close" size={24} color="black" />
           </Pressable>
-          <ModalHeader>
-            <View>
-              <Text style={styles.styleText}>Titulo</Text>
-              <TextInput style={styles.input} value={title} onChangeText={setTitle} />
-            </View>
-          </ModalHeader>
           <Text style={styles.styleText}>Qual o motivo do conflito</Text>
           <TextInput style={styles.textArea} value={conflict} onChangeText={setConflict} />
           <Pressable onPress={handleSubmit} style={styles.buttonSubmit}>
