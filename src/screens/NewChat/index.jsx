@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button, View, Text, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView,
-  TouchableWithoutFeedback, Keyboard
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import Footer from '../../components/Footer';
+import { useData } from '../../hooks/useData'
 
 const NewChat = () => {
-  const user = "bruno@teste.com"
+  const { userAuth } = useData();
   const [messages, setMessages] = useState(null);
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    const orders1 = firestore().collection("bruno@teste.com")
+    const orders1 = firestore().collection(`${userAuth}`)
       .orderBy("createdAt", "asc").onSnapshot(querySnapshot => {
         const data = querySnapshot.docs.map(doc => {
           return {
@@ -31,10 +31,10 @@ const NewChat = () => {
 
   function createNewMessage() {
     firestore()
-      .collection('bruno@teste.com')
+      .collection(`${userAuth}`)
       .add({
         message: input,
-        userName: 'bruno@teste.com',
+        userName: `${userAuth}`,
         createdAt: firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
@@ -46,23 +46,18 @@ const NewChat = () => {
   }
 
   return <KeyboardAvoidingView behavior="position" enabled>
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <ScrollView style={styles.containerScrollView}>
-          <View>
-            {messages && messages.map((element, index) => <Text style={element.userName === user ? styles.myMessage : styles.nobullyMessage} key={index}>{element.text}</Text>)}
-          </View>
-        </ScrollView>
-        <View style={styles.input}>
-          <TextInput onChangeText={setInput} value={input} style={styles.inputStyle} placeholder="Digite sua mensagem" />
-          <Button onPress={createNewMessage} title="Enviar"></Button>
+    <View style={styles.container}>
+      <ScrollView style={styles.containerScrollView}>
+        <View>
+          {messages && messages.map((element, index) => <Text style={element.userName === userAuth ? styles.myMessage : styles.nobullyMessage} key={index}>{element.text}</Text>)}
         </View>
-        <Footer />
-      </View >
-    </TouchableWithoutFeedback >
-
-
-
+      </ScrollView>
+      <View style={styles.input}>
+        <TextInput onChangeText={setInput} value={input} style={styles.inputStyle} placeholder="Digite sua mensagem" />
+        <Button onPress={createNewMessage} title="Enviar"></Button>
+      </View>
+      <Footer />
+    </View >
   </KeyboardAvoidingView >
 
 }

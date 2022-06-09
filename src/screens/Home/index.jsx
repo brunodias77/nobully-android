@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, TextInput, Pressable, StatusBar, Modal, StyleSheet, View, Text } from 'react-native';
-import { ModalHeader, Container, Content, Title, SubTitle, ButtonFloating } from './styles';
+import { Container, Content, Title, SubTitle, ButtonFloating } from './styles';
 import Header from '../../components/Header/index'
 import Footer from '../../components/Footer/index'
 import { Feather } from "@expo/vector-icons"
@@ -12,39 +12,61 @@ import { useData } from '../../hooks/useData'
 
 const Home = () => {
 
-  const [orders, setOrders] = React.useState(null);
+  const [orderHome, setOrderHome] = React.useState(null);
   const [conflict, setConflict] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
+  const { userAuth } = useData();
+  const array = userAuth.split('@');
+  const userName = array[0];
 
   React.useEffect(() => {
     handleOrders();
   }, [])
 
   async function handleOrders() {
-    const order = await firestore().collection('bruno@teste.com').get();
-    setOrders(order.docs);
+    const orders1 = firestore().collection(`${userAuth}`)
+      .orderBy("createdAt", "asc").onSnapshot(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => {
+          return {
+            "createdAt": new Date(),
+            "text": `${doc.data().message}`,
+            "userName": doc.data().userName,
+          }
+        })
+        if (data.length === 0) {
+          setOrderHome(null)
+        } else {
+          setOrderHome(data[0].text)
+        }
+        return () => subscriber();
+      })
+
   }
+
 
   function handleSubmit() {
     if (conflict !== " ") {
-      firestore().collection("bruno@teste.com").add({
+      firestore().collection(`${userAuth}`).add({
         message: `${conflict}`,
-        userName: 'nobully@teste.com',
+        userName: `${userAuth}`,
         createdAt: firestore.FieldValue.serverTimestamp()
 
-      }).then(() => Alert.alert("user criado com sucesso !")).catch(err => console.log(err.message))
+      }).then(() => {
+        Alert.alert("messagem salva com sucesso !");
+        setModalVisible(!modalVisible);
+      }).catch(err => console.log(err.message))
     } else {
       Alert.alert("Preencha os dados corretamente")
     }
 
   }
-
   return (<Container>
     <StatusBar backgroundColor="#1B1B1F" barStyle='light-content' />
     <Header />
     <Content>
-      <Title>Ola, Bruno Dias</Title>
-      {orders && orders.map((element, index) => <Card key={index} message={element.message} />)}
+      <Title>Ola, {`${userName}`}</Title>
+      {/* {orderHome && orderHome.map((element, index) => <Card key={index} message={element.text} />)} */}
+      {orderHome == null ? <SubTitle>Não foi encontrado{'\n'}nenhum conflito em seu nome</SubTitle> : <Card message={orderHome} />}
     </Content>
 
     <ButtonFloating onPress={() => setModalVisible(!modalVisible)}>

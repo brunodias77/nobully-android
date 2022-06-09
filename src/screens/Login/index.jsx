@@ -14,9 +14,10 @@ import auth from '@react-native-firebase/auth';
 import { useData } from '../../hooks/useData'
 
 const Login = () => {
-  const { numero, setUserAuth, userAuth } = useData();
+  const { setUserAuth, userAuth } = useData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   function handleLogin() {
     if (email && password !== " ") {
       auth().signInWithEmailAndPassword(email, password).then((user) => {
