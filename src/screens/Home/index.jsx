@@ -22,7 +22,6 @@ const Home = () => {
 
   async function handleOrders() {
     const order = await firestore().collection('bruno@teste.com').get();
-    console.log(order);
     setOrders(order.docs);
   }
 

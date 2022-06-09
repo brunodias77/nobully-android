@@ -14,12 +14,13 @@ import auth from '@react-native-firebase/auth';
 import { useData } from '../../hooks/useData'
 
 const Login = () => {
-  const { numero } = useData();
+  const { numero, setUserAuth, userAuth } = useData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   function handleLogin() {
     if (email && password !== " ") {
-      auth().signInWithEmailAndPassword(email, password).then(() => {
+      auth().signInWithEmailAndPassword(email, password).then((user) => {
+        setUserAuth(user.user.email);
         Alert.alert("Logado com sucesso")
         navigation.navigate("Home")
       }).catch(err => console.log(err))
@@ -30,6 +31,8 @@ const Login = () => {
 
   }
   const navigation = useNavigation();
+
+
   return <KeyboardAvoidingView behavior="position" enabled>
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>

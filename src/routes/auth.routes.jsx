@@ -4,7 +4,6 @@ import Initial from '../screens/Initial';
 import Login from '../screens/Login';
 import Home from '../screens/Home';
 import Register from '../screens/Register'
-import Chat from '../screens/Chat/index';
 import NewChat from '../screens/NewChat/index'
 import { Profile } from '../screens/Profile';
 
@@ -17,7 +16,6 @@ const AuthRoutes = () => {
     <Screen name="Login" component={Login} />
     <Screen name="Home" component={Home} />
     <Screen name="Register" component={Register} />
-    <Screen name="Chat" component={Chat} />
     <Screen name="Profile" component={Profile} />
     <Screen name="NewChat" component={NewChat} />
   </Navigator>
