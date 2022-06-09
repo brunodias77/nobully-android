@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 const Header = () => {
 
   return < Container >
-    <Date>9 de junho de 2022</Date>
+    <Date>12 de junho de 2022</Date>
   </Container >
 
 }

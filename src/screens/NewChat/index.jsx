@@ -45,20 +45,18 @@ const NewChat = () => {
 
   }
 
-  return <KeyboardAvoidingView behavior="position" enabled>
-    <View style={styles.container}>
-      <ScrollView style={styles.containerScrollView}>
-        <View>
-          {messages && messages.map((element, index) => <Text style={element.userName === userAuth ? styles.myMessage : styles.nobullyMessage} key={index}>{element.text}</Text>)}
-        </View>
-      </ScrollView>
-      <View style={styles.input}>
-        <TextInput onChangeText={setInput} value={input} style={styles.inputStyle} placeholder="Digite sua mensagem" />
-        <Button onPress={createNewMessage} title="Enviar"></Button>
+  return <View style={styles.container}>
+    <ScrollView style={styles.containerScrollView}>
+      <View>
+        {messages && messages.map((element, index) => <Text style={element.userName === userAuth ? styles.myMessage : styles.nobullyMessage} key={index}>{element.text}</Text>)}
       </View>
-      <Footer />
-    </View >
-  </KeyboardAvoidingView >
+    </ScrollView>
+    <View style={styles.input}>
+      <TextInput onChangeText={setInput} value={input} style={styles.inputStyle} placeholder="Digite sua mensagem" />
+      <Button onPress={createNewMessage} title="Enviar"></Button>
+    </View>
+    <Footer />
+  </View >
 
 }
 
